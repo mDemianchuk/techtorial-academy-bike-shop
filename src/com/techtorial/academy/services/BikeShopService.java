@@ -1,8 +1,6 @@
 package com.techtorial.academy.services;
 
 import com.techtorial.academy.models.Bike;
-import com.techtorial.academy.models.MountainBike;
-import com.techtorial.academy.models.RoadBike;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,20 +9,11 @@ public class BikeShopService {
     private List<Bike> inventory;
 
     public BikeShopService() {
-        this.initializeInventory();
-    }
-
-    private void initializeInventory() {
         this.inventory = new ArrayList<>();
-        this.inventory.add(new MountainBike(20));
-        this.inventory.add(new RoadBike(12));
-        this.inventory.add(new MountainBike(6));
-        this.inventory.add(new RoadBike(10));
-        this.inventory.add(new MountainBike(5));
     }
 
-    public int getInventorySize() {
-        return this.inventory.size();
+    public boolean addBike(Bike bike) {
+        return this.inventory.add(bike);
     }
 
     public void showInventory() {
@@ -32,6 +21,10 @@ public class BikeShopService {
         for (Bike bike : this.inventory) {
             System.out.println("\t" + bike);
         }
+    }
+
+    public int getInventorySize() {
+        return this.inventory.size();
     }
 
     public Bike findBike(int maxPrice) {
@@ -51,7 +44,6 @@ public class BikeShopService {
         }
         return null;
     }
-
 
     public Bike findBike(int maxPrice, String kind) {
         for (Bike bike : this.inventory) {
