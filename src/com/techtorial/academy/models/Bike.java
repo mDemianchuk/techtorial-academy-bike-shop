@@ -22,6 +22,6 @@ public abstract class Bike {
 
     @Override
     public String toString() {
-        return this.kind + " bike that costs $" + this.price;
+        return this.kind + " bike for $" + this.price;
     }
 }
