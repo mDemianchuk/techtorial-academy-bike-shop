@@ -1,12 +1,16 @@
-package com.techtorial.academy.models;
+package com.techtorial.academy.services;
+
+import com.techtorial.academy.models.Bike;
+import com.techtorial.academy.models.MountainBike;
+import com.techtorial.academy.models.RoadBike;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BikeShop {
+public class BikeShopService {
     private List<Bike> inventory;
 
-    public BikeShop() {
+    public BikeShopService() {
         this.initializeInventory();
     }
 
