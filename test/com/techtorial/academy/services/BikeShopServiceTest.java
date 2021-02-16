@@ -9,26 +9,86 @@ import org.junit.jupiter.api.Test;
 
 class BikeShopServiceTest {
 
-    private BikeShopService shopService;
+    private BikeShopService bikeShopService;
 
     @BeforeEach
     void setUp() {
-        this.shopService = new BikeShopService();
-        this.shopService.addBike(new RoadBike(5));
-        this.shopService.addBike(new MountainBike(10));
+        this.bikeShopService = new BikeShopService();
+        this.bikeShopService.addBike(new RoadBike(4));
+        this.bikeShopService.addBike(new MountainBike(10));
     }
 
     @Test
     void addBike() {
         // Arrange
-        int expectedInventorySize = 3;
         Bike bike = new RoadBike(2);
 
         // Act
-        this.shopService.addBike(bike);
-        int inventorySize = this.shopService.getInventorySize();
+        boolean isAdded = this.bikeShopService.addBike(bike);
 
         // Assert
-        Assertions.assertEquals(expectedInventorySize, inventorySize);
+        Assertions.assertTrue(isAdded);
+    }
+
+    @Test
+    void findBikeByMaxPriceWhenInventoryIsEmptyThenReturnsNull() {
+        // Arrange
+        this.bikeShopService = new BikeShopService();
+        int maxPrice = 1;
+
+        // Act
+        Bike bike = this.bikeShopService.findBike(maxPrice);
+
+        // Assert
+        Assertions.assertNull(bike);
+    }
+
+    @Test
+    void findBikeByMaxPriceWhenInventoryHasNoBikesUnderMaxPriceThenReturnsNull() {
+        // Arrange
+        int maxPrice = -1;
+
+        // Act
+        Bike bike = this.bikeShopService.findBike(maxPrice);
+
+        // Assert
+        Assertions.assertNull(bike);
+    }
+
+    @Test
+    void findBikeByMaxPriceWhenInventoryHasBikesUnderMaxPriceThenReturnsBike() {
+        // Arrange
+        int maxPrice = Integer.MAX_VALUE;
+
+        // Act
+        Bike bike = this.bikeShopService.findBike(maxPrice);
+
+        // Assert
+        Assertions.assertNotNull(bike);
+    }
+
+    @Test
+    void findBikeByKindWhenInventoryHasBikesOfThatKindThenReturnsBike() {
+        // Arrange
+        String kind = "road";
+
+        // Act
+        Bike bike = this.bikeShopService.findBike(kind);
+
+        // Assert
+        Assertions.assertEquals("road", bike.getKind());
+    }
+
+    @Test
+    void findBikeByKindWhenInventoryIsEmptyThenReturnsNull() {
+        // Arrange
+        this.bikeShopService = new BikeShopService();
+        String kind = "road";
+
+        // Act
+        Bike bike = this.bikeShopService.findBike(kind);
+
+        // Assert
+        Assertions.assertNull(bike);
     }
 }
